@@ -20,17 +20,11 @@ A modern and responsive E-Commerce homepage built using React.js.
 ## Screenshots
 
 ### Homepage
-
-![Homepage](./screenshots/homepage.png)
-
-### Categories
-
-![Categories](./screenshots/categories.png)
-
+![Homepage Overview](./Screenshot%20(140).png)
 ### Products
-
-![Products](./screenshots/products.png)
-
+![Product Section](./Screenshot%20(141).png)
+### checkout section
+![Checkout View](./Screenshot%20(142).png)
 ## Author
 
 Aryan Samant
