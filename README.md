@@ -27,6 +27,9 @@ A modern and responsive E-Commerce homepage built using React.js.
 ![Checkout View](./Screenshot%20(142).png)
 ###  testimonial section
 <img width="1920" height="1080" alt="Screenshot (143)" src="https://github.com/user-attachments/assets/fc1c4a29-620a-480b-92eb-1afe1a6a3652" />
+### FOOTER SECTION
+<img width="1920" height="1080" alt="Screenshot (152)" src="https://github.com/user-attachments/assets/1441c784-713d-4ec1-a69f-c46d050abf58" />
+
 
 ## Author
 
