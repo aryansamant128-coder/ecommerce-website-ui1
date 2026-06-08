@@ -1,45 +1,52 @@
 import React from 'react';
 
-export default function ProductCards() {
+export  function Cards() {
   const products = [
-    { id: 1, name: "Minimalist Leather Watch", price: "$189.00", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=300&q=80" },
-    { id: 2, name: "Premium Cotton Hoodie", price: "$85.00", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=300&q=80" },
-    { id: 3, name: "Urban Canvas Backpack", price: "$120.00", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=300&q=80" },
-    { id: 4, name: "Classic Matte Sunglasses", price: "$65.00", img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=300&q=80" },
+    { id: 1, name: "Minimalist Leather Watch", price: "$189.00", badge: "Hot", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" },
+    { id: 2, name: "Premium Cotton Hoodie", price: "$85.00", badge: "Sale", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=400&q=80" },
+    { id: 3, name: "Urban Canvas Backpack", price: "$120.00", badge: null, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80" },
+    { id: 4, name: "Classic Matte Sunglasses", price: "$65.00", badge: "New", img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=400&q=80" },
   ];
 
-  const styles = {
-    section: { padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'sans-serif' },
-    grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' },
-    card: { backgroundColor: '#ffffff', border: '1px solid #f3f4f6', borderRadius: '12px', overflow: 'hidden', display: 'flex', flexDirection: 'column' },
-    imgBox: { backgroundColor: '#f9fafb', aspectRatio: '1', overflow: 'hidden' },
-    img: { width: '100%', height: '100%', objectFit: 'cover' },
-    info: { padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px', flexGrow: 1, justifyContent: 'space-between' },
-    pName: { fontSize: '15px', fontWeight: '600', color: '#111827', margin: 0 },
-    row: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' },
-    price: { fontSize: '16px', fontWeight: '700', color: '#111827' },
-    btn: { backgroundColor: '#111827', color: '#ffffff', border: 'none', padding: '6px 12px', fontSize: '12px', fontWeight: '600', borderRadius: '4px', cursor: 'pointer' }
-  };
-
   return (
-    <div style={styles.section}>
-      <div style={styles.grid}>
-        {products.map((p) => (
-          <div key={p.id} style={styles.card}>
-            <div style={styles.imgBox}>
-              <img src={p.img} alt={p.name} style={styles.img} />
-            </div>
-            <div style={styles.info}>
-              <h3 style={styles.pName}>{p.name}</h3>
-              <div style={{color: '#f59e0b', fontSize: '12px'}}>★★★★★</div>
-              <div style={styles.row}>
-                <span style={styles.price}>{p.price}</span>
-                <button style={styles.btn}>Add to Cart</button>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 my-8">
+      {products.map((product) => (
+        <div key={product.id} className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col justify-between">
+          <div className="relative bg-gray-50 aspect-square overflow-hidden">
+            {product.badge && (
+              <span className={`absolute top-3 left-3 text-xs font-bold px-2.5 py-1 rounded-full text-white z-10 ${
+                product.badge === 'Sale' ? 'bg-red-500' : product.badge === 'Hot' ? 'bg-orange-500' : 'bg-indigo-600'
+              }`}>
+                {product.badge}
+              </span>
+            )}
+            <img 
+              src={product.img} 
+              alt={product.name} 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          
+          <div className="p-5 flex-grow flex flex-col justify-between">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors line-clamp-1">
+                {product.name}
+              </h3>
+              <div className="flex items-center space-x-1 mt-1 text-yellow-400">
+                <span>★★★★★</span>
+                <span className="text-xs text-gray-400 font-normal">(42 reviews)</span>
               </div>
             </div>
+
+            <div className="mt-4 flex items-center justify-between">
+              <span className="text-lg font-bold text-gray-900">{product.price}</span>
+              <button className="bg-gray-900 hover:bg-indigo-600 text-white text-xs font-semibold px-3 py-2 rounded-md transition-colors">
+                Add to Cart
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Testimonials() {
+export  function Testimonials() {
   const reviews = [
     { name: "Sarah Jenkins", text: "The quality of materials here surprised me. Shipping took just 2 days and customer support was lightning fast.", initial: "S" },
     { name: "David K.", text: "Absolutely in love with the canvas backpack. Sleek profile, durable layout, and carries everything effortlessly.", initial: "D" },

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Categories() {
+export  function Categories() {
   const categories = [
     { name: "Men's Apparel", img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80" },
     { name: "Women's Fashion", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80" },
