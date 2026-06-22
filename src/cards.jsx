@@ -1,52 +1,50 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+// 1. FIXED: Changed import name to match your supabaseClient export
+import { supabaseClient } from './supabase'; 
 
-export  function Cards() {
-  const products = [
-    { id: 1, name: "Minimalist Leather Watch", price: "$189.00", badge: "Hot", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" },
-    { id: 2, name: "Premium Cotton Hoodie", price: "$85.00", badge: "Sale", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=400&q=80" },
-    { id: 3, name: "Urban Canvas Backpack", price: "$120.00", badge: null, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80" },
-    { id: 4, name: "Classic Matte Sunglasses", price: "$65.00", badge: "New", img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=400&q=80" },
-  ];
+import { DEFAULT_CARDS } from './defaultcards';
+
+function Cards() {
+  const [products, setProducts] = useState(DEFAULT_CARDS);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNewProducts = async () => {
+      try {
+        // 2. FIXED: Changed 'supabase' to 'supabaseClient' here
+        const { data, error } = await supabaseClient
+          .from('products')
+          .select('*');
+
+        if (error) throw error;
+
+        if (data) {
+          setProducts([...DEFAULT_CARDS, ...data]);
+        }
+      } catch (error) {
+        console.error("Error fetching new products:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNewProducts();
+  }, []);
+
+  if (loading) return <p style={{ textAlign: 'center', padding: '20px' }}>Loading products...</p>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 my-8">
-      {products.map((product) => (
-        <div key={product.id} className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col justify-between">
-          <div className="relative bg-gray-50 aspect-square overflow-hidden">
-            {product.badge && (
-              <span className={`absolute top-3 left-3 text-xs font-bold px-2.5 py-1 rounded-full text-white z-10 ${
-                product.badge === 'Sale' ? 'bg-red-500' : product.badge === 'Hot' ? 'bg-orange-500' : 'bg-indigo-600'
-              }`}>
-                {product.badge}
-              </span>
-            )}
-            <img 
-              src={product.img} 
-              alt={product.name} 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-          
-          <div className="p-5 flex-grow flex flex-col justify-between">
-            <div>
-              <h3 className="text-sm font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors line-clamp-1">
-                {product.name}
-              </h3>
-              <div className="flex items-center space-x-1 mt-1 text-yellow-400">
-                <span>★★★★★</span>
-                <span className="text-xs text-gray-400 font-normal">(42 reviews)</span>
-              </div>
-            </div>
-
-            <div className="mt-4 flex items-center justify-between">
-              <span className="text-lg font-bold text-gray-900">{product.price}</span>
-              <button className="bg-gray-900 hover:bg-indigo-600 text-white text-xs font-semibold px-3 py-2 rounded-md transition-colors">
-                Add to Cart
-              </button>
-            </div>
-          </div>
+    <div className="products-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', padding: '20px' }}>
+      {products.map((item) => (
+        <div key={item.id} className="product-card" style={{ border: '1px solid #ddd', padding: '15px', borderRadius: '8px', width: '200px' }}>
+          <img src={item.image} alt={item.name} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px' }} />
+          <h3 style={{ margin: '10px 0 5px 0' }}>{item.name}</h3>
+          <p style={{ color: '#666', fontSize: '14px', margin: '0 0 10px 0' }}>Category: {item.category}</p>
+          <p className="price" style={{ fontWeight: 'bold', color: '#4f46e5', margin: '0' }}>{item.price}</p>
         </div>
       ))}
     </div>
   );
 }
+
+export default Cards;

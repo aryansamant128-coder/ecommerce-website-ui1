@@ -45,8 +45,9 @@ export function Navbar() {
         <div style={styles.links}>
           <Link to="/" style={styles.link}>Home</Link>
           <Link to="/categories" style={styles.link}>Categories</Link>
-          <Link to="/cards" style={styles.link}>Products</Link>
+          <Link to="/cards" style={styles.link}>cards</Link>
           <Link to="/testimonials" style={styles.link}>Reviews</Link>
+          <Link to="/add-product" style={styles.link}>Add product</Link>
         </div>
       </div>
     </nav>
